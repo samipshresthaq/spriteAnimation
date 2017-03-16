@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+
+			.canvas{
+				width: 640px;
+				height: 480px;
+				position: relative;
+				border: 1px solid red;
+			}
+		
+	</style>
+	
+</head>
+<body>
+
+	<div class="canvas">
+		<div class="spriteImage">
+			
+		</div>
+	</div>
+<script type="text/javascript">
+;(function(){
+	'use strict';
+
+	function SpriteSheet(src,imageWidth,imageHeight,row,column)
+	{	
+		// var image = src;
+		var that = this;
+		this.x = 0;
+		this.y = 0;
+		this.dx = Math.floor(imageWidth/column);
+		this.dy = Math.floor(imageHeight/row);
+		this.canvas = document.getElementsByClassName('spriteImage')[0];
+		this.canvas.style.background = 'red';
+		this.canvas.style.width = this.dx + 'px';
+		this.canvas.style.height = this.dy + 'px';
+		this.canvas.style.position = 'absolute';
+
+		this.canvas.style.background = 'url('+ src +') no-repeat';
+
+		this.move = function(){
+			if(that.x === -((column-1) * that.dx))
+			{
+				that.x = 0;
+				if(that.y === -((row-1) * that.dy))
+				{
+					that.y = 0;
+				}
+
+				else
+				{
+				that.y = that.y - that.dy;
+				}
+			}
+
+			that.x = that.x - that.dx;
+			that.canvas.style.backgroundPosition = that.x + 'px ' + that.y + 'px';
+			
+		}
+	}
+
+	function init()
+	{
+		var spriteSheet = new SpriteSheet('spritesheet1.png',500,500,4,4); // src , width ,height , row , column
+		var animation = setInterval(spriteSheet.move,60);
+	}
+
+	init();
+
+})();
+</script>
+</body>
+</html>
